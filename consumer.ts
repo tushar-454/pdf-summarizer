@@ -9,7 +9,8 @@ export default {
 
     async queue(batch: MessageBatch<{ content: string }>, env: CloudflareEnv) {
         const client = postgres(env.pdf_summarizer.connectionString, {
-            ssl: "require",
+            prepare: false,
+            ssl: false,
             max: 5,
         });
         const db = drizzle(client);
@@ -22,14 +23,19 @@ export default {
                 { input_text: content },
             );
 
-            const summary = result.summary;
-            const title = content.slice(0, 50) + "...";
+            const maxTitleLength = 256;
+            const maxTextLength = 10000;
+            const summary = result.summary?.trim();
+            const titleBase =
+                content.length > 50 ? content.slice(0, 50) + "..." : content;
+            const title = titleBase.slice(0, maxTitleLength);
+            const safeContent = content.slice(0, maxTextLength);
 
             if (summary) {
                 await db.insert(summaries).values({
                     title,
-                    summary,
-                    content,
+                    summary: summary.slice(0, maxTextLength),
+                    content: safeContent,
                 });
             }
         }
