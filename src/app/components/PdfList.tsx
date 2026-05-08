@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function PdfList() {
     const db = await getDB();
     const data = await db.select().from(pdfs);
-    console.log("Fetched PDFs:", data);
+
     return (
         <div>
             <h2>Uploaded PDFs</h2>

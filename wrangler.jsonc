@@ -1,7 +1,7 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
     "name": "pdf-summarizer",
-    "main": ".open-next/worker.js",
+    "main": "consumer.ts",
     "compatibility_date": "2026-05-08",
     "compatibility_flags": ["nodejs_compat"],
     "hyperdrive": [
@@ -11,7 +11,19 @@
             "localConnectionString": "postgresql://postgres:do1CGXH3HFx4s1ld@db.aznnzxnqzwndwulhljzb.supabase.co:5432/postgres?sslmode=require",
         },
     ],
-
+    "queues": {
+        "producers": [
+            {
+                "queue": "pdf-summarizer-queue",
+                "binding": "pdf_summarizer_queue",
+            },
+        ],
+        "consumers": [
+            {
+                "queue": "pdf-summarizer-queue",
+            },
+        ],
+    },
     "assets": {
         "binding": "ASSETS",
         "directory": ".open-next/assets",

@@ -1,10 +1,12 @@
 "use client";
 
 import { handlePdfUpload } from "@/actions";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
 export default function UploadSection() {
     const [isUploading, setIsUploading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -16,6 +18,7 @@ export default function UploadSection() {
         try {
             await handlePdfUpload(formData);
             form.reset();
+            router.refresh();
         } catch (error) {
             console.error("Upload failed", error);
         } finally {
