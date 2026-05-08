@@ -13,7 +13,7 @@ export default async function PdfList() {
             <ul>
                 {/* This is where the list of uploaded PDFs will be rendered */}
                 {data.map((pdf) => (
-                    <li key={pdf.id}>{pdf.content.slice(0, 50)}</li>
+                    <li key={pdf.id}>{pdf.content.slice(0, 50)}...</li>
                 ))}
             </ul>
         </div>
