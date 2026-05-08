@@ -1,6 +1,7 @@
 import { summaries } from "@/db/schema";
 import type { MessageBatch } from "@cloudflare/workers-types";
 import { drizzle } from "drizzle-orm/postgres-js";
+import { revalidatePath } from "next/cache";
 import postgres from "postgres";
 import worker from "./.open-next/worker";
 
@@ -37,6 +38,7 @@ export default {
                     summary: summary.slice(0, maxTextLength),
                     content: safeContent,
                 });
+                revalidatePath("/summaries");
             }
         }
     },

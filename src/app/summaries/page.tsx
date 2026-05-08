@@ -1,12 +1,16 @@
 import { getDB } from "@/db";
 import { summaries } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
 export default async function Summaries() {
     const db = await getDB();
-    const data = await db.select().from(summaries);
-    console.log(data);
+    const data = await db
+        .select()
+        .from(summaries)
+        .orderBy(desc(summaries.createdAt));
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
