@@ -11,5 +11,6 @@ export const summaries = pgTable("summaries", {
     id: serial("id").primaryKey(),
     title: varchar("title", { length: 256 }).notNull(),
     summary: varchar("summary", { length: 10000 }).notNull(),
+    content: varchar("content", { length: 10000 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });

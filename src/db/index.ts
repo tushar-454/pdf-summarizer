@@ -1,7 +1,7 @@
+"use server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import "server-only";
 
 const getClient = async () => {
     const { env } = await getCloudflareContext({ async: true });

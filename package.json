@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@opentelemetry/api": "^1.9.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20.19.40",
     "@types/pg": "^8.20.0",
